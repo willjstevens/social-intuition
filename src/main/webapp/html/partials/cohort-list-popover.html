@@ -1,0 +1,74 @@
+<span ng-show="placement == 'left'">
+    <a href=""
+       data-toggle="popover"
+       data-trigger="focus"
+       data-animation="false"
+       role="button"
+       tabindex="0"
+       data-placement="left">
+        <ng-transclude></ng-transclude>
+    </a>
+</span>
+<span ng-show="placement == 'right'">
+    <a href=""
+       data-toggle="popover"
+       data-trigger="focus"
+       data-animation="false"
+       role="button"
+       tabindex="1"
+       data-placement="right">
+        <ng-transclude></ng-transclude>
+    </a>
+</span>
+
+<div ng-attr-id="{{popoverId}}" class="hide cohort-list-popover">
+    <span class="h5">
+        <span ng-if="type === 'likes'">Who liked this</span>
+        <span ng-if="type === 'commentLikes'">Who liked this comment</span>
+        <span ng-if="type === 'outcomeVotes'">Who voted for this</span>
+        ({{totalCount}})
+    </span>
+    <div ng-show="typeParent.length >= 1" class="cushion-10-bottom">
+        <hr />
+        <div class="media" ng-repeat="user in typeParent">
+            <div class="row">
+                <div class="col-xs-4 col-sm-3">
+                    <div class="media-left">
+                        <a ng-href="#/profile/{{user.username}}">
+                            <img ng-src="{{user.imageInfo.secureUrl}}"
+                                 name="{{user.fullName}}"
+                                 class="media-object media-object-xs profile-photo-small">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-9">
+                    <div class="media-body full-width">
+                        <a ng-href="#/profile/{{user.username}}">
+                            {{user.fullName}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="guestCount >= 1">
+        <hr />
+        <div class="media">
+            <div class="row">
+                <div class="col-xs-4 col-sm-3">
+                    <div class="media-left">
+                        <img ng-src="{{userGuestImageUrl}}"
+                             name="Guest"
+                             class="media-object media-object-xs profile-photo-small">
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-9">
+                    <div class="media-body full-width">
+                        Guest<span ng-show="guestCount >= 2">s</span> ({{guestCount}})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

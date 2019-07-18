@@ -1,0 +1,44 @@
+<div class="row cushion-10-bottom" ng-if="allowSetOutcome">
+    <div class="col-xs-12 col-sm-offset-4 col-sm-4">
+        <a href=""
+           class="btn btn-primary btn-sm btn-block"
+           ng-click="showSetOutcome()">
+            <span class="si-icon-head-idea-lightbulb"></span>
+            Set Outcome
+        </a>
+    </div>
+</div>
+<div class="row" ng-show="allowSetOutcome">
+    <div class="col-xs-12 form-group" uib-collapse="hideSetOutcome">
+        <label for="outcome" class="pull-left">Select outcome and confirm</label>
+        <br />
+        <select id="outcome"
+                name="outcome"
+                class="form-control"
+                required
+                ng-model="outcomePredictionChoice"
+                ng-options="potentialOutcome as potentialOutcome.predictionText for potentialOutcome in intuition.potentialOutcomes"
+                ng-change="outcomeNotSelected = false"
+                >
+            <option value="">
+                Select
+            </option>
+        </select>
+        <div class="row" uib-collapse="outcomeNotSelected">
+            <div class="col-xs-12 col-sm-offset-1 col-sm-5 cushion-10-top">
+                <a class="btn btn-primary btn-block" ng-click="setOutcome()" ng-show="!isSettingOutcome">
+                    <span class="si-icon-save-floppy"></span>
+                    Confirm outcome
+                </a>
+                <span ng-show="isSettingOutcome">
+                    <span class="si-icon-cw-clockwise si-ico-font-size-xs fa-spin"></span> Setting outcome...
+                </span>
+            </div>
+            <div class="col-xs-12 col-sm-5 cushion-10-top">
+                <a class="btn btn-default btn-block" ng-click="cancelOutcome()" ng-show="!isSettingOutcome">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

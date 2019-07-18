@@ -1,0 +1,61 @@
+
+/*
+ *  CUSTOM STYLES
+ */
+
+$si-background: #ecebed;
+$body-bg: $si-background;
+//$body-bg: #f5f5f6;
+
+$si-font-family-theme: 'Raleway';
+$si-font-family-decorated: 'Newslab';
+$si-font-family-plain: "Helvetica";
+$si-font-family-sans-serif: "Lucida Grande","Tahoma","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif";
+$si-font-family-serif: "Lucida Grande","Tahoma","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif";
+
+// Primary (dark purple)
+//$si-primary: #332141;
+$si-primary: #473754;
+//$si-primary-bg: #c7c3cb;
+$si-primary-border: #382c43;
+$si-primary-color: #f2f2f2;
+
+// Tints and Shades
+$si-primary-light: lighten($si-primary, 15%);
+$si-primary-lighter: lighten($si-primary, 25%);
+$si-primary-lightest: lighten($si-primary, 50%);
+
+$si-contextual-success: #004c00;
+$si-contextual-fail: #660000;
+$si-contextual-info: #000040;
+
+
+
+
+/*
+ * BOOTSTRAP OVERRIDES
+ */
+$icon-font-path: "bootstrap/assets/fonts/bootstrap/";
+$font-family-sans-serif: $si-font-family-sans-serif;
+$font-family-serif: $si-font-family-serif;
+$font-size-base: 13px;
+
+$brand-primary: $si-primary;
+
+// Buttons
+$btn-success-bg: $si-contextual-success;
+$btn-danger-bg: $si-contextual-fail;
+$btn-info-bg: $si-contextual-info;
+
+// Navbar
+$navbar-inverse-bg: $si-primary;
+$navbar-inverse-border: $si-primary-border;
+$navbar-inverse-color: $si-primary-color;
+$navbar-inverse-brand-color: $si-primary-color;
+$navbar-inverse-brand-hover-color: #fff;
+$navbar-inverse-link-color: $si-primary-color;
+$navbar-inverse-link-hover-color: #fff;
+
+// Labels
+$label-primary-bg: $si-primary;
+$label-success-bg: $si-contextual-success;

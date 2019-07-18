@@ -1,0 +1,63 @@
+<div class="media">
+    <div class="media-left">
+        <a ng-href="#/profile/{{intuition.user.username}}">
+            <span class="si-icon-user-userpic-avatar-portrait si-icon-user-userpic-avatar-portrait-lg-position-adjustment si-ico-font-size-lg media-object"
+                  ng-if="!intuition.user.imageInfo" class="media-object"></span>
+            <img ng-src="{{intuition.user.imageInfo.secureUrl}}"
+                 ng-if="intuition.user.imageInfo"
+                 name="{{intuition.user.fullName}}"
+                 class="media-object media-object-sm profile-photo-small">
+        </a>
+    </div>
+    <div class="media-body full-width">
+        <span class="media-heading h4">
+            <a ng-href="#/profile/{{intuition.user.username}}">
+                {{intuition.user.fullName}}
+            </a>
+        </span>
+        <span class="pull-right vertical-center">
+            <span ng-switch="intuition.visibility">
+                <span ng-switch-when="public">
+                    <i class="si-icon-unlocked si-ico-font-size-xs"></i> Public
+                </span>
+                <span ng-switch-when="cohort">
+                    <i class="si-icon-users si-ico-font-size-xs"></i> Cohort
+                </span>
+                <span ng-switch-when="private">
+                    <i class="si-icon-lock si-ico-font-size-xs"></i> Private
+                </span>
+            </span>
+        </span>
+        <div class="h6">
+            <a uib-tooltip="{{intuitionDto.postTimestamp}}" tooltip-placement="right" class="si-font-plain">
+                {{intuitionDto.postPrettyTimestamp}}
+            </a>
+            <span class="si-font-plain pull-right">
+                <span ng-switch="intuitionDto.active">
+                    <span ng-switch-when="true">Expires</span>
+                    <span ng-switch-when="false">Expired</span>
+                </span>
+                <a uib-tooltip="{{intuitionDto.expirationTimestamp}}" tooltip-placement="bottom">
+                    {{intuitionDto.expirationPrettyTimestamp}}
+                </a>
+            </span>
+        </div>
+        <div class="h6" ng-if="intuitionDto.owner">
+            <span class="si-font-plain pull-right">
+                <a href="" ng-click="toggleHideDelete()">
+                    <span class="si-icon-trash-delete-remove"></span>
+                    Delete
+                </a>
+            </span>
+        </div>
+        <div class="text-center" uib-collapse="hideDelete">
+            <a class="btn btn-danger" ng-click="removeIntuition()" ng-show="!isRemoving">
+                <span class="si-icon-trash-delete-remove"></span>
+                Delete the entire intuition?
+            </a>
+            <span ng-show="isRemoving">
+                <span class="si-icon-cw-clockwise si-ico-font-size-xs fa-spin"></span> Deleting...
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<hr class="cushion-10-top" />
+<div class="row cushion-10-top">
+    <div class="col-xs-12 col-sm-6">
+        <button class="btn btn-info btn-sm"
+                ng-click="share.shareFacebook(intuition)"
+                ng-disabled="intuitionDto.isFacebookShared">
+            <span class="si-icon-social-facebook"></span>
+            <span class="">Share</span>
+        </button>
+        <a ng-href="{{intuitionDto.tweetIntent}}" class="btn btn-success btn-sm">
+            <span class="si-icon-social-twitter-tweet-bird"></span>
+            <span class="">Tweet</span>
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="pull-right">
+            <a ng-href="#/intuition/{{intuitionDto.intuition.id}}" class="btn btn-default btn-xs">
+                <span class="si-icon-resize-maximize"></span>
+            </a>
+        </div>
+    </div>
+</div>

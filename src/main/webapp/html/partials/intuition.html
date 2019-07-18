@@ -1,0 +1,40 @@
+<intuition-header intuition-dto="intuitionDto"
+                    remove-intuition-dto="removeIntuitionDto"></intuition-header>
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10">
+
+        <!-- The Intuition Statement -->
+        <blockquote class="si-font-decorated-thin cushion-15-top">
+            <p>
+                <i class="fa fa-quote-left pull-left text-muted"></i>
+                {{intuition.intuitionText}}
+                <i class="fa fa-quote-right text-muted"></i>
+            </p>
+            <footer><cite title="{{intuition.user.fullName}}">{{intuition.user.fullName}}</cite></footer>
+        </blockquote>
+
+        <!-- Intuition Image -->
+        <span ng-repeat="imageInfo in intuition.imageInfos">
+            <a class="swipebox-intuition" ng-href="{{imageInfo.secureUrl}}">
+                <img ng-src="{{imageInfo.secureUrl}}"
+                     class="intuition-picture img-responsive center-block cushion-15-bottom">
+            </a>
+        </span>
+
+        <!-- Intuition Fragments -->
+        <prediction intuition-dto="intuitionDto"
+                    reset-intuition-dto="resetIntuitionDto"
+                            ng-if="intuitionDto.active"></prediction>
+        <outcome intuition-dto="intuitionDto"
+                            reset-intuition-dto="resetIntuitionDto"
+                            ng-if="!intuitionDto.active"></outcome>
+        <control-bar intuition-dto="intuitionDto"
+                            reset-intuition-dto="resetIntuitionDto"></control-bar>
+        <social-bar intuition-dto="intuitionDto"
+                            level="'intuition'"
+                            reset-intuition-dto="resetIntuitionDto"
+                            ng-if="intuitionDto.interactive"></social-bar>
+        <intuition-footer intuition-dto="intuitionDto"
+                            share="share"></intuition-footer>
+    </div>
+</div>

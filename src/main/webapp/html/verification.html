@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="well well-large cushion-20-top">
+        <div ng-switch="verificationTarget">
+            <div ng-switch-when="cs">
+                <div class="media">
+                    <div class="media-left">
+                        <span class="si-icon-head-idea-lightbulb si-ico-font-size-lg"></span>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">Welcome to Social Intuition!</h2>
+                        <h4 class="cushion-15-top">Before using SocialIntuition.co, you need to verify your account by clicking on the link in the email that has been sent to you.</h4>
+                        <h4 class="cushion-15-top">You will have 7 days to verify your email before the link will expire.</h4>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="vs">
+                <div class="media">
+                    <div class="media-left">
+                        <span class="si-icon-open-sign si-ico-font-size-lg"></span>
+                    </div>
+                    <div class="media-body full-width">
+                        <h2 class="media-heading">
+                            Your account has been verified.
+                        </h2>
+                        <h4 class="cushion-15-top">Login to get going!</h4>
+                        <h4 class="cushion-15-top">
+                            <a class="btn btn-default btn-lg btn-block"href="#/login">Login &raquo;</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div ng-switch-when="bv">
+                <h3>We are sorry but your account could not be verified.</h3>
+                <p>Check that you are using the original link in email or copy the link into a browser.</p>
+            </div>
+            <div ng-switch-when="ec">
+                <h3>We are sorry but the verification code is expired.</h3>
+                <p>If you wish to reattempt, please send a request through the feedback form. Thank you.</p>
+            </div>
+            <div ng-switch-when="vac">
+                <h3>You have already verified your account.</h3>
+                <p>Feel free to login and get started.</p>
+            </div>
+            <div ng-switch-when="uni">
+                <h3>You could not be identified.</h3>
+            </div>
+            <div ng-switch-default>
+                Where are you trying to go?
+            </div>
+        </div>
+    </div>
+</div>

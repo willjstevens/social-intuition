@@ -1,0 +1,191 @@
+<div class="row" ng-show="!progressing && !doneWithSignup">
+    <div class="col-xs-12">
+        <div class="well">
+            <form name="form"
+                  ng-submit="registerWithSocialIntuition()"
+                  novalidate
+                  autocomplete="off">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <label for="email">Email</label>
+                        <input id="email"
+                               name="email"
+                               type="email"
+                               class="form-control input-lg"
+                               maxlength="51"
+                               required
+                               si-check-email-availability
+                               ng-model="user.email"
+                               ng-minlength="5"
+                               ng-maxlength="50"
+                               ng-model-options="{ debounce: 500 }"
+                        />
+                        <div ng-messages="form.email.$error" ng-if="form.email.$invalid && form.email.$dirty" class="error error-animate">
+                            <div ng-message="required">Email is required.</div>
+                            <div ng-message="minlength">Email must be at least 5 characters.</div>
+                            <div ng-message="maxlength">Email cannot exceed 50 characters.</div>
+                            <div ng-message="email">Email is not a valid format.</div>
+                            <div ng-message="notAvailable">Email not available.</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <label for="username">Username</label>
+                        <input id="username"
+                               name="username"
+                               type="text"
+                               class="form-control input-lg"
+                               maxlength="26"
+                               required
+                               si-check-username-availability
+                               ng-pattern=/^[a-zA-Z0-9]+$/
+                               ng-model="user.username"
+                               ng-minlength="2"
+                               ng-maxlength="25"
+                               ng-model-options="{ debounce: 500 }"
+                        />
+                        <div ng-messages="form.username.$error" ng-if="form.username.$invalid && form.username.$dirty" class="error error-animate">
+                            <div ng-message="required">Username is required.</div>
+                            <div ng-message="minlength">Username must be at least 2 characters.</div>
+                            <div ng-message="maxlength">Username cannot exceed 25 characters.</div>
+                            <div ng-message="pattern">Username may only contain characters and digits.</div>
+                            <div ng-message="notAvailable">Username not available.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName"
+                               name="firstName"
+                               type="text"
+                               class="form-control input-lg"
+                               maxlength="21"
+                               required
+                               ng-pattern=/^[a-zA-Z\s]+$/
+                               ng-model="user.firstName"
+                               ng-minlength="2"
+                               ng-maxlength="20"
+                               ng-model-options="{ debounce: 500 }"
+                        />
+                        <div ng-messages="form.firstName.$error" ng-if="form.firstName.$invalid && form.firstName.$dirty" class="error error-animate">
+                            <div ng-message="required">First name is required.</div>
+                            <div ng-message="minlength">First name must be at least 2 characters.</div>
+                            <div ng-message="maxlength">First name cannot exceed 20 characters.</div>
+                            <div ng-message="pattern">First name may only contain letters.</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName"
+                               name="lastName"
+                               type="text"
+                               class="form-control input-lg"
+                               maxlength="21"
+                               required
+                               ng-pattern=/^[a-zA-Z\s]+$/
+                               ng-model="user.lastName"
+                               ng-minlength="2"
+                               ng-maxlength="20"
+                               ng-model-options="{ debounce: 500 }"
+                        />
+                        <div ng-messages="form.lastName.$error" ng-if="form.lastName.$invalid && form.lastName.$dirty" class="error error-animate">
+                            <div ng-message="required">Last name is required.</div>
+                            <div ng-message="minlength">Last name must be at least 2 characters.</div>
+                            <div ng-message="maxlength">Last name name cannot exceed 20 characters.</div>
+                            <div ng-message="pattern">Last name may only contain contain letters.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <label for="password">Password</label>
+                        <input id="password"
+                               name="password"
+                               type="password"
+                               class="form-control input-lg"
+                               maxlength="13"
+                               required
+                               ng-pattern=/^[a-zA-Z0-9\$\*\!\@\#]+$/
+                               ng-model="user.password"
+                               ng-minlength="5"
+                               ng-maxlength="12"
+                               ng-model-options="{ debounce: 500 }"
+                        />
+                        <div ng-messages="form.password.$error" ng-if="form.password.$invalid && form.password.$dirty" class="error error-animate">
+                            <div ng-message="required">Password is required.</div>
+                            <div ng-message="minlength">Password must be at least 5 characters.</div>
+                            <div ng-message="maxlength">Password cannot exceed 12 characters.</div>
+                            <div ng-message="pattern">Password may only contain characters, numbers and special characters: $ * ! @ #</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 form-group">
+                        <div class="checkbox">
+                            <label for="inAgreement">
+                                <input id="inAgreement"
+                                       name="inAgreement"
+                                       type="checkbox"
+                                       required
+                                       ng-model="user.inAgreement"
+                                />
+                                <small>
+                                    By checking this box you agree to the
+                                    <a href='javascript: void(0)' onclick="window.open('#/terms-of-service')">Terms of Service</a>
+                                    and
+                                    <a href='javascript: void(0)' onclick="window.open('#/privacy-policy')">Privacy Policy</a>.
+                                </small>
+                            </label>
+                            <div ng-messages="form.inAgreement.$error" ng-if="form.inAgreement.$invalid && form.inAgreement.$dirty" class="error error-animate">
+                                <div ng-message="required">You must be in agreement to open an account.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cushion-20-top">
+                    <span class="col-xs-12 form-group">
+                        <div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-lg btn-block"
+                                ng-disabled="form.$invalid">
+                                <span class="si-icon-open-sign si-ico-font-size-xs"></span>
+                                Sign up
+                            </button>
+                        </div>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="progressing">
+    <div class="col-xs-12 cushion-30-top text-center">
+        <i class="si-icon-cw-clockwise si-ico-font-size-lg fa-spin"></i>
+        <h2>{{progressMessage}}</h2>
+    </div>
+</div>
+<div class="row" ng-show="errorDuringRegistration">
+    <div class="col-xs-12 text-center text-danger">
+        <h3>
+            <span class="si-icon-button-circle-cross si-ico-font-size-xs"></span>
+            Error occurred during registration.
+        </h3>
+        <p>Please try again later.</p>
+    </div>
+</div>
+<div class="row" ng-show="doneWithSignup">
+    <div class="col-xs-12 text-center">
+        <h2 class="text-success">
+            <span class="si-icon-check si-ico-font-size"></span>
+            <strong>Done.</strong>
+        </h2>
+        <h3 class="text-primary">
+            Welcome to Social Intuition!
+        </h3>
+        <div class="cushion-15-top">
+            <a ng-href="#/profile/{{user.username}}" class="btn btn-primary">
+                <span class="si-icon-head-idea-lightbulb si-ico-font-size-xs"></span>
+                GET STARTED
+            </a>
+        </div>
+    </div>
+</div>

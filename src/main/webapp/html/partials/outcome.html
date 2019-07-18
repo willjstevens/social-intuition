@@ -1,0 +1,76 @@
+<div class="panel panel-default outcome-panel" ng-class="{correct: intuition.outcome.correct, incorrect: !intuition.outcome.correct}">
+    <div class="panel-heading">
+        Outcome
+        <span class="pull-right result">
+            <span ng-if="intuitionDto.correct" class="text-success">
+                <span class="si-icon-check si-ico-font-size-xs"></span>
+                CORRECT
+            </span>
+            <span ng-if="!intuitionDto.correct" class="text-danger">
+                <span class="si-icon-cross si-ico-font-size-xs"></span>
+                WRONG
+            </span>
+        </span>
+    </div>
+    <div class="panel-body">
+        <div ng-if="intuition.outcome.correct" class="si-font-decorated-medium text-center">
+            {{intuition.predictedOutcome.predictionText}}
+        </div>
+        <div ng-if="!intuition.outcome.correct">
+            <div class="row">
+                <div class="col-xs-12 col-sm-2">
+                    Actual:
+                </div>
+                <div class="col-xs-12 col-sm-10">
+                    <span ng-if="!intuitionDto.intuition.outcome.wrongByExpiration" class="si-font-decorated-medium">
+                        {{intuition.outcome.predictionText}}
+                    </span>
+                    <span ng-if="intuitionDto.intuition.outcome.wrongByExpiration">
+                        <i>Nothing</i> <span class="cushion-10-left small text-muted">No outcome entered before expiration.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row cushion-10-top">
+                <div class="col-xs-12 col-sm-2">
+                    Predicted:
+                </div>
+                <div class="col-xs-12 col-sm-10 si-font-decorated-medium">
+                    {{intuition.predictedOutcome.predictionText}}
+                </div>
+            </div>
+        </div>
+        <div ng-if="intuition.predictionType === 'multiple-choice'" class="cushion-10-top">
+            <div class="row">
+                <div class="col-xs-12">
+                    Choices:
+                </div>
+            </div>
+            <ol class="cushion-10-bottom" type="A">
+                <li ng-repeat="potentialOutcomeDto in intuitionDto.potentialOutcomeDtos"
+                    ng-init="predicted = potentialOutcomeDto.outcome.id == intuition.outcome.id;
+                        setChoiceLetter($index, predicted)
+                    "
+                    class="multiple-choice">
+                    <span class="si-font-decorated">
+                        {{potentialOutcomeDto.outcome.predictionText}}
+                    </span>
+                    <small class="text-muted" ng-show="potentialOutcomeDto.predicted"><i>(predicted)</i></small>
+                    <span ng-if="potentialOutcomeDto.outcome.outcomeVoters.length >= 1" class="pull-right">
+                        <span class="si-icon-label-tag"></span>
+                        Votes
+                        <cohort-list-popover parent="potentialOutcomeDto"
+                                             level="'outcomeVotes'"
+                                             type="'outcomeVotes'"
+                                             placement="'left'">
+                            <span class="badge">{{potentialOutcomeDto.outcome.outcomeVoters.length}}</span>
+                        </cohort-list-popover>
+                    </span>
+                </li>
+            </ol>
+        </div>
+        <div class="cushion-10-top"></div>
+        <social-bar intuition-dto="intuitionDto"
+                    level="'outcome'"
+                    reset-intuition-dto="resetIntuitionDto"></social-bar>
+    </div>
+</div>

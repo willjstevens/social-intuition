@@ -1,0 +1,632 @@
+
+@import "variables";
+@import "bootstrap/assets/stylesheets/_bootstrap";
+
+/*
+ * HTML OVERRIDES
+ */
+body {
+    padding-top: 50px;
+}
+label {
+    font-weight: normal;
+}
+hr {
+    //border: 1px solid $si-primary-lightest;
+
+    border-top: 1px solid #ccc;
+    margin: 5px 0 5px 0;
+}
+a {
+    cursor: pointer;
+}
+legend {
+    border-bottom: 1px solid $si-primary;
+}
+
+/*
+ * BOOTSTRAP and OTHER LIB OVERRIDES
+ */
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+    background-color: lighten($si-primary, 8%);
+    border-color: lighten($si-primary-border, 8%);
+}
+.text-success {
+    color: $si-contextual-success;
+}
+.text-danger {
+    color: $si-contextual-fail;
+}
+.text-light {
+    color: $si-primary-color;
+}
+/* As advised by Angular Bootstrap due to removing the href tags to not conflict with route changes. */
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+.navbar {
+    border: 0;
+    min-height: 53px;
+}
+.navbar-form {
+    box-shadow: none;
+    border: 0;
+    padding: 3px 3px;
+    margin-bottom: 5px;
+}
+.navbar-form.session-bar {
+    position: relative;
+    top: -6px;
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #777;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: $si-primary-light;
+}
+.collapse.in {
+    overflow: visible !important;
+}
+.fa.fa-quote-left, .fa.fa-quote-right {
+    font-size: 65%;
+}
+.media {
+    margin-top: 10px;
+}
+
+/*
+ * UTILITIES
+ */
+.vertical-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+.cushion-5-top {
+    margin-top: 5px;
+}
+.cushion-5-bottom {
+    margin-bottom: 5px;
+}
+.cushion-5-right {
+    margin-right: 5px;
+}
+.cushion-5-left {
+    margin-left: 5px;
+}
+.cushion-10 {
+    margin: 10px;
+}
+.cushion-10-top {
+    margin-top: 10px;
+}
+.cushion-10-bottom {
+    margin-bottom: 10px;
+}
+.cushion-10-right {
+    margin-right: 10px;
+}
+.cushion-10-left {
+    margin-left: 10px;
+}
+.cushion-15 {
+    margin: 15px;
+}
+.cushion-15-top {
+    margin-top: 15px;
+}
+.cushion-15-bottom {
+    margin-bottom: 15px;
+}
+.cushion-15-left {
+    margin-left: 15px;
+}
+.cushion-20 {
+    margin: 20px;
+}
+.cushion-20-top {
+    margin-top: 20px;
+}
+.cushion-20-bottom {
+    margin-bottom: 20px;
+}
+.cushion-20-left {
+    margin-left: 20px;
+}
+.cushion-30-top {
+    margin-top: 30px;
+}
+.cushion-40-top {
+    margin-top: 40px;
+}
+.cushion-50-right {
+    margin-right: 50px;
+}
+.pull-up-3 {
+    position: relative;
+    top: -3px;
+}
+.pull-up-4 {
+    position: relative;
+    top: -4px;
+}
+.pull-up-5 {
+    position: relative;
+    top: -5px;
+}
+.push-down-3 {
+    position: relative;
+    top: 3px;
+}
+.push-down-4 {
+    position: relative;
+    top: 4px;
+}
+.push-down-5 {
+    position: relative;
+    top: 5px;
+}
+.full-width {
+    width: 100%;
+}
+.display-inline {
+    display: inline;
+}
+.text-color-primary {
+    color: $si-primary-lighter;
+}
+.no-top-margin {
+    margin-top: 0;
+}
+.opacity-50 {
+    opacity: .5;
+}
+.opacity-75 {
+    opacity: .75;
+}
+
+/*
+ * CUSTOM STANDARD STYLES
+ */
+legend.tight {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #d1c0de;
+}
+.theme-background {
+    background-color: $si-background;
+}
+.theme-background-primary {
+    background-color: $si-primary;
+}
+.theme-background-primary-light {
+    background-color: $si-primary-light;
+}
+.theme-background-primary-lighter {
+    background-color: $si-primary-lighter;
+}
+.theme-background-primary-lightest {
+    background-color: $si-primary-lightest;
+}
+.notification-badge {
+    color: #000;
+    background-color: #fff;
+    position: relative;
+    left: -18px;
+    top: 5px;
+}
+.feature-box {
+    border: 1px solid $si-primary-border;
+    padding: 7px;
+}
+.media-object-md {
+    max-height: 220px;
+    max-width: 220px;
+}
+.media-object-sm {
+    max-height: 64px;
+    max-width: 64px;
+}
+.media-object-xs {
+    max-height: 40px;
+    max-width: 40px;
+    border-radius: 1px;
+    padding: 1px;
+}
+.bottom-separator {
+    border-bottom: 1px solid #ccc;
+}
+.si-font-filled {
+    color: $si-primary;
+}
+.si-font-plain {
+    font-family: $si-font-family-plain;
+}
+.si-font-decorated {
+    font-family: $si-font-family-decorated;
+}
+.si-font-decorated-thin {
+    @extend .si-font-decorated;
+    font-weight: 100;
+}
+.si-font-decorated-medium {
+    @extend .si-font-decorated;
+    font-weight: 500;
+}
+.si-font-decorated-bold {
+    @extend .si-font-decorated;
+    font-weight: 700;
+}
+.si-font-theme {
+    font-family: $si-font-family-theme;
+}
+.si-font-theme-light {
+    @extend .si-font-theme;
+    font-weight: 300;
+}
+.si-font-theme-normal {
+    @extend .si-font-theme;
+    font-weight: 400;
+}
+.si-font-theme-medium {
+    @extend .si-font-theme;
+    font-weight: 500;
+}
+[class^="si-icon-"]:before {
+    font-size: 100%;
+}
+.si-ico-font-size-xs {
+    font-size: 150%;
+}
+.si-ico-font-size-sm {
+    font-size: 200%;
+}
+.si-ico-font-size-md {
+    font-size: 300%;
+}
+.si-ico-font-size-lg {
+    font-size: 400%;
+}
+.si-ico-font-size-600 {
+    font-size: 600%;
+}
+.si-ico-font-size-700 {
+    font-size: 700%;
+}
+.si-ico-font-size-1200 {
+    font-size: 1200%;
+}
+.si-font-size-90 {
+    font-size: 90%;
+}
+.si-font-size-80 {
+    font-size: 80%;
+}
+.si-font-size-75 {
+    font-size: 75%;
+}
+.si-font-size-70 {
+    font-size: 70%;
+}
+.si-font-size-60 {
+    font-size: 60%;
+}
+.si-font-size-50 {
+    font-size: 50%;
+}
+.color-primary {
+    color: $si-primary;
+}
+
+/*
+ * SPECIFIC ONE-OFF STYLES
+ */
+.well.embedded {
+    background-color: $body-bg;
+    border: 1px solid lighten($si-primary-border, 15%);
+
+    li.multiple-choice {
+        margin: 5px 0 5px 0;
+    }
+}
+div.themed-border {
+    border-bottom: 2px solid $si-primary-border;
+    border-radius: 3px;
+}
+
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .outcome-panel {
+        .panel-heading {
+            background-color: $body-bg;
+        }
+        .result {
+            position: relative;
+            top: -7px;
+        }
+    }
+
+    .panel.correct {
+        border: 1px solid $si-contextual-success;
+    }
+    .panel.incorrect {
+        border: 1px solid $si-contextual-fail;
+    }
+    .prediction {
+        .panel-heading {
+            background-color: $body-bg;
+        }
+    }
+
+.feed-item {
+}
+.addIntuition {
+    hr {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+.intuition-picture {
+    max-height: 150px;
+    max-width: 150px;
+    border: 2px solid $si-primary-lightest;
+    border-radius: 3px;
+    padding: 4px;
+}
+.profile-photo {
+    max-height: 200px;
+    max-width: 200px;
+    border: 1px solid $si-primary-light;
+    border-radius: 2px;
+    padding: 4px;
+}
+.profile-photo-small {
+    border: 1px solid $si-primary-light;
+    border-radius: 2px;
+    padding: 2px;
+}
+.si-icon-user-userpic-avatar-portrait-sm-position-adjustment {
+    position: relative;
+    bottom: 12px;
+}
+.si-icon-user-userpic-avatar-portrait-lg-position-adjustment {
+    position: relative;
+    bottom: 20px;
+}
+.si-notification-dropdown {
+    top: 5px;
+}
+.si-notification-dropdown > ul {
+    min-width: 300px;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: inherit; /* for notification button dropdown */
+}
+.cohort-list-popover {
+    min-width: 250px;
+}
+.profile {
+    .header-name {
+        padding: 0px 5px 10px 5px;
+    }
+}
+.home {
+    .social-intuition-text {
+        text-shadow: 3px 8px 3px #444;
+        color: #fff;
+    }
+    .image-backdrop {
+        height: 500px;
+        .backstretch {
+            background-color: rgba(62, 141, 183, 0.3) !important;
+            transition: background 2s ease-in;
+        }
+    }
+    .hiw-item {
+        margin: 10px;
+        padding-bottom: 15px;
+    }
+    .hiw-item-head-idea-lightbulb {
+        position: relative;
+        top: -28px;
+    }
+    .hiw-item-head-idea-lightbulb-grid {
+        height: 90px;
+    }
+    .hiw-item-capture-scrolling-text {
+        border-radius: 2px;
+        box-shadow: 5px 5px 5px #777;
+        border: solid 1px #777;
+        width: 80%;
+        padding: 15px;
+    }
+    .scroll-top-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        color: $si-primary;
+        background-color: transparent;
+    }
+}
+.header-btn {
+    color: $si-primary-color;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    &.btn-default, &.btn-default:hover, &.btn-default:focus, &.btn-default:active, .btn-default.dropdown-toggle {
+        border-bottom: 1px solid $si-primary-color;
+    }
+}
+
+/*
+ * MEDIA QUERIES
+ */
+/* smart phones, portrait iPhone */
+@media (max-width: 767px) {
+    .home {
+        .social-intuition-text {
+            font-size: 70px;
+            margin-top: 50px;
+            position: relative;
+            top: 135px;
+        }
+    }
+    .navbar-form > ul > li > a {
+        font-size: 90%;
+    }
+}
+/* tablets, desktop browsers */
+@media (min-width: 768px) {
+    .home {
+        .social-intuition-text {
+            font-size: 120px;
+            margin-top: 100px;
+            position: relative;
+            top: 75px;
+        }
+        .contact-social-intuition-text {
+            position: relative;
+            top: 65px;
+        }
+    }
+    .profile {
+        .small-pie-chart {
+            position: relative;
+            top: -50px;
+
+            &.owned-pie-chart {
+                right: 50px;
+            }
+            &.cohort-pie-chart {
+                left: 50px;
+            }
+        }
+    }
+}
+
+/*
+ * DECORATED FONTS
+ */
+$si-font-decorated-parent-directory: '../NewslabFamily/';
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 100;
+    src: url($si-font-decorated-parent-directory + 'NewslabThin.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 100;
+    src: url($si-font-decorated-parent-directory + 'NewslabThin-italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 300;
+    src: url($si-font-decorated-parent-directory + 'NewslabLight.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 300;
+    src: url($si-font-decorated-parent-directory + 'NewslabLight-italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 400;
+    src: url($si-font-decorated-parent-directory + 'Newslab.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 700;
+    src: url($si-font-decorated-parent-directory + 'Newslab-italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 700;
+    src: url($si-font-decorated-parent-directory + 'NewslabBold.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 400;
+    src: url($si-font-decorated-parent-directory + 'NewslabBook.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 400;
+    src: url($si-font-decorated-parent-directory + 'NewslabBook-Italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 500;
+    src: url($si-font-decorated-parent-directory + 'NewslabMedium.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 500;
+    src: url($si-font-decorated-parent-directory + 'NewslabMedium-Italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 700;
+    src: url($si-font-decorated-parent-directory + 'NewslabExtrabold.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 700;
+    src: url($si-font-decorated-parent-directory + 'NewslabBold-italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 700;
+    src: url($si-font-decorated-parent-directory + 'NewslabExtrabold-italic.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: normal;
+    font-weight: 900;
+    src: url($si-font-decorated-parent-directory + 'NewslabBlack.otf')
+}
+@font-face {
+    font-family: $si-font-family-decorated;
+    font-style: italic;
+    font-weight: 900;
+    src: url($si-font-decorated-parent-directory + 'NewslabBlack-italic.otf')
+}
+
+/*
+ * Theme font
+ */
+$si-font-theme-parent-directory: '../Raleway/';
+@font-face {
+    font-family: $si-font-family-theme;
+    font-style: normal;
+    font-weight: 300;
+    src: url($si-font-theme-parent-directory + 'Raleway-Light.ttf')
+}
+@font-face {
+    font-family: $si-font-family-theme;
+    font-style: normal;
+    font-weight: 400;
+    src: url($si-font-theme-parent-directory + 'Raleway-Regular.ttf')
+}
+@font-face {
+    font-family: $si-font-family-theme;
+    font-style: normal;
+    font-weight: 500;
+    src: url($si-font-theme-parent-directory + 'Raleway-Medium.ttf')
+}
+

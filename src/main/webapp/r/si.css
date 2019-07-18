@@ -1,0 +1,201 @@
+
+/*
+ * Overrides and Statics
+ */
+
+.error-animate.ng-enter, .error-animate.ng-leave {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+.error-animate.ng-enter,
+.error-animate.ng-leave.ng-leave-active {
+    opacity:0;
+}
+.error-animate.ng-leave,
+.error-animate.ng-enter.ng-enter-active {
+    opacity:1;
+}
+.error {
+    color: #575757;
+    background: #f2dede;
+    border: 1px #ffb2b2 solid;
+    margin-top: 10px;
+    padding: 7px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.animateShow {
+    opacity: 1;
+}
+.animateShow.ng-hide-remove.ng-hide-remove-active {
+    -webkit-transition: all linear 1s;
+    transition: all linear 1s;
+}
+.animateShow.ng-hide {
+    opacity: 0;
+}
+.messageFadeOut {
+    -webkit-transition: opacity 4s ease-in-out;
+    -moz-transition: opacity 4s ease-in-out;
+    -ms-transition: opacity 4s ease-in-out;
+    -o-transition: opacity 4s ease-in-out;
+    transition: opacity 4s ease-in-out;
+    opacity: 0;
+}
+.addIntuitionLoading {
+    -webkit-transition: all ease-in-out 2s;
+    -moz-transition: all ease-in-out 2s;
+    -ms-transition: all ease-in-out 2s;
+    -o-transition: all ease-in-out 2s;
+    transition: all ease-in-out 2s;
+}
+.addIntuitionLoading.addIntuitionLoaded {
+    background: #e9e2f0 !important;
+    margin-bottom: 40px;
+}
+
+.apple-store-logo-container {
+    width: 200px;
+    height: auto;
+}
+
+/*
+ * CLOCK
+ */
+.clock {
+    border-radius: 50%;
+    background: url('https://d3e9sldr572y3v.cloudfront.net/ios_clock.svg') no-repeat center;
+    background-size: 90%;
+    height: 10em;
+    position: relative;
+    width: 10em;
+    margin: auto auto;
+}
+.minutes-container, .hours-container, .seconds-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.hours {
+    background: #555;
+    height: 18%;
+    left: 48.75%;
+    position: absolute;
+    top: 32%;
+    transform-origin: 50% 100%;
+    width: 2.5%;
+}
+.minutes {
+    background: #333;
+    height: 23%;
+    left: 49%;
+    position: absolute;
+    top: 28%;
+    transform-origin: 50% 100%;
+    width: 2%;
+}
+.seconds {
+    background: #333;
+    height: 40%;
+    left: 49%;
+    position: absolute;
+    top: 18%;
+    transform-origin: 50% 80%;
+    width: 1%;
+    z-index: 8;
+}
+@keyframes rotate {
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+.hours-container {
+    animation: rotate 43200s infinite linear;
+}
+.minutes-container {
+    animation: rotate 3600s infinite linear;
+}
+.seconds-container {
+    animation: rotate 60s infinite linear;
+}
+
+/*
+ * Swipe image popout
+ */
+#box {
+    width:300px;
+    height:200px;
+    margin: auto auto;
+    background: url("https://d3e9sldr572y3v.cloudfront.net/outcomes/outcome-sample.png");
+    background-size: cover;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #aaa;
+    padding: 3px;
+}
+
+#overlay {
+    background:rgba(0,0,0,.75);
+    text-align:center;
+    padding:45px 0 66px 0;
+    opacity:0;
+    -webkit-transition: opacity .25s ease;
+    -moz-transition: opacity .25s ease;}
+
+#box:hover #overlay {
+    opacity:1;}
+
+#plus       {
+    font-family:Helvetica;
+    font-weight:900;
+    color:rgba(255,255,255,.85);
+    font-size:96px;
+}
+
+
+/*
+ * Horizontal rule effect with text in middle
+ *
+ *   <div class="strike">
+ *      <span>Kringle</span>
+ *   </div>
+ *
+ */
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.strike > span {
+    position: relative;
+    display: inline-block;
+}
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: #888;
+}
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+
+
+
+
+
+
+
+
+

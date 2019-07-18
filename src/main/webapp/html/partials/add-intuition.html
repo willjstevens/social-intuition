@@ -1,0 +1,262 @@
+<div class="well addIntuition" ng-show="!intuitionAddSaving">
+    <form name="form"
+          novalidate
+          autocomplete="off">
+
+        <textarea
+            rows="2"
+            class="form-control"
+            placeholder="What do you have an intuition about?"
+            required
+            ng-model="intuition.intuitionText"
+            ng-focus="showIntuitionContent = true"></textarea>
+
+        <div class="animateShow" ng-show="showIntuitionContent">
+            <div class="row cushion-10-top">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label>Prediction Type</label>
+                            <br />
+                            <div class="btn-group btn-group-justified">
+                                <label class="btn btn-primary btn-group-sm" ng-model="intuition.predictionType" uib-btn-radio="'true-false'">
+                                    True<br />False
+                                </label>
+                                <label class="btn btn-primary btn-group-sm" ng-model="intuition.predictionType" uib-btn-radio="'yes-no'">
+                                    Yes<br />No
+                                </label>
+                                <label class="btn btn-primary btn-group-sm" ng-model="intuition.predictionType" uib-btn-radio="'multiple-choice'">
+                                    Multiple<br />Choice
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <!--True / False -->
+                            <div ng-show="intuition.predictionType === 'true-false'">
+                                <label>Predicted Outcome - True / False</label>
+                                <br />
+                                <select id="predictedOutcomeTrueFalse"
+                                        name="predictedOutcomeTrueFalse"
+                                        class="form-control"
+                                        required
+                                        ng-model="intuition.predictedOutcome"
+                                        ng-options="predictionChoice as predictionChoice.predictionText for predictionChoice in predictionChoicesTrueFalse"
+                                        >
+                                    <option value="">
+                                        Select
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Yes / No -->
+                            <div ng-show="intuition.predictionType === 'yes-no'">
+                                <label>Predicted Outcome - Yes / No</label>
+                                <br />
+                                <select id="predictedOutcomeYesNo"
+                                        name="predictedOutcomeYesNo"
+                                        class="form-control"
+                                        required
+                                        ng-model="intuition.predictedOutcome"
+                                        ng-options="predictionChoice as predictionChoice.predictionText for predictionChoice in predictionChoicesYesNo"
+                                        >
+                                    <option value="">
+                                        Select
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Multiple Choice -->
+                            <div ng-show="intuition.predictionType === 'multiple-choice'">
+                                <label>Predicted Outcome - Multiple Choice</label>
+                                <select id="predictedOutcomeMultipleChoice"
+                                            name="predictedOutcomeMultipleChoice"
+                                            class="form-control"
+                                        required
+                                        ng-model="intuition.predictedOutcome"
+                                        ng-options="choice as choice.predictionText for choice in predictionChoicesMultipleChoice"
+                                        >
+                                    <option value="">
+                                        Select
+                                    </option>
+                                </select>
+                                <fieldset class="cushion-10-top">
+                                    <legend class="small tight">Outcome choices</legend>
+
+                                    <div ng-show="predictionChoicesMultipleChoice.length == 0" class="cushion-10-bottom">
+                                        <small><i>No predicted outcomes yet. Add some below.</i></small>
+                                    </div>
+
+                                    <div ng-show="predictionChoicesMultipleChoice.length >= 1">
+                                        <table class="table table-striped table-condensed table-responsive small">
+                                            <tbody>
+                                            <tr ng-repeat="choice in predictionChoicesMultipleChoice">
+                                                <td width="90%">{{choice.predictionText}}</td>
+                                                <td width="10%">
+                                                    <a class="btn btn-default btn-xs" ng-click="multipleChoiceRemove(choice)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="cushion-15-bottom">
+                                    <legend class="small tight">Add an outcome choice</legend>
+                                    <input type="text"
+                                           name="newMultipleChoiceText"
+                                           class="form-control input-sm"
+                                           ng-model="newMultipleChoiceText"
+                                           />
+                                    <button ng-click="multipleChoiceAdd()"
+                                            class="btn btn-default btn-sm btn-block cushion-5-top">
+                                        <i class="fa fa-plus"></i>
+                                        Add
+                                    </button>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <button
+                                ngf-select="true"
+                                ng-model="intuitionPicture"
+                                class="btn btn-default btn-xs cushion-10-top"
+                                ngf-multiple="false"
+                                ngf-accept="'*.pdf,*.jpg,*.jpeg,*.png'">
+                                <span class="si-icon-photo-camera si-ico-font-size-xs"></span>
+                                <span class="">Add Picture</span>
+                            </button>
+                            <img
+                                ng-show="intuitionPicture != undefined"
+                                ngf-src="intuitionPicture"
+                                class="intuition-picture cushion-15-left">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label>Visibility</label>
+                            <!--<i class="fa fa-question"-->
+                               <!--uib-tooltip-html-unsafe="-->
+                                    <!--<i class='fa fa-unlock'></i> Public: Seen by everyone<br />-->
+                                    <!--<i class='fa fa-users'></i> Cohort: Seen by only your cohorts<br />-->
+                                    <!--<i class='fa fa-lock'></i> Private: Seen by only you-->
+                               <!--">-->
+                            <!--</i>-->
+                            <br />
+                            <div class="btn-group btn-group-justified">
+                                <label class="btn btn-primary"
+                                       ng-model="intuition.visibility"
+                                       uib-btn-radio="'public'">
+                                    <i class="fa fa-unlock"></i>
+                                    Public
+                                </label>
+                                <label class="btn btn-primary"
+                                       ng-model="intuition.visibility"
+                                       uib-btn-radio="'cohort'">
+                                    <i class="fa fa-users"></i>
+                                    Cohorts
+                                </label>
+                                <label class="btn btn-primary"
+                                       ng-model="intuition.visibility"
+                                       uib-btn-radio="'private'">
+                                    <i class="fa fa-lock"></i>
+                                    Private
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="intuition.visibility === 'public' || intuition.visibility === 'cohort'">
+                        <div class="col-xs-12 form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="intuition.scoreIntuition">
+                                    Score intuition
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="intuition.displayPrediction">
+                                    Show predicted outcome
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="intuition.allowPredictedOutcomeVoting">
+                                    Allow cohorts to vote on predicted outcomes
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           ng-model="intuition.allowCohortsToContributePredictedOutcomes"
+                                           ng-show="intuition.predictionType === 'multiple-choice'">
+                                    Allow cohorts to contribute predicted outcomes
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 form-group">
+                            <label for="activeWindow">Active Window</label>
+                            <!--<i class="fa fa-question"-->
+                               <!--uib-tooltip-html="-->
+                                    <!--The amount of time before the intuition expires and is locked preventing you to enter an outcome.<br />-->
+                                    <!--<strong>Note</strong>: If you don't enter an outcome within the active window then you will-->
+                                            <!--be marked as wrong for your intuition!-->
+                               <!--">-->
+                            <!--</i>-->
+                            <select id="activeWindow"
+                                    name="activeWindow"
+                                    class="form-control"
+                                    required
+                                    ng-model="intuition.activeWindow"
+                                    ng-options="activeWindow.text as activeWindow.code for activeWindow in activeWindows"
+                                    >
+                                <option value="">
+                                    Select
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row visible-sm visible-md visible-lg">
+                <div class="cols-sm-12 pull-right cushion-10-right">
+                    <a type="submit"
+                       class="btn btn-primary"
+                       ng-click="addIntuition()"
+                       ng-disabled="form.$invalid">
+                        Add Intuition
+                    </a>
+                    <a ng-click="resetIntuition()" class="btn btn-default">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+            <div class="row visible-xs">
+                <div class="col-xs-12 ">
+                    <button type="submit"
+                            class="btn btn-primary btn-lg btn-block"
+                            ng-click="addIntuition()"
+                            ng-disabled="form.$invalid">
+                        Add Intuition
+                    </button>
+                    <button ng-click="resetIntuition()" class="btn btn-default btn-block">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="well text-center" ng-show="intuitionAddSaving">
+    <h2><i class="fa fa-spinner fa-spin"></i></h2>
+    Saving intuition...
+</div>
+<!--<div class="alert alert-info" ng-class="{messageFadeOut: intuitionAdded}" ng-show="intuitionAdded" role="alert">-->
+    <!--Your intuition has been added!-->
+<!--</div>-->

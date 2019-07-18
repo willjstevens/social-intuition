@@ -1,0 +1,64 @@
+<div class="container">
+
+    <div class="row cushion-20-top" ng-show="share.hasReferral && share.referral.guestAllowed && share.referral.requestRegistration">
+        <div class="col-xs-12 text-center">
+            <h5 class="text-warning">
+                Please sign up below or...
+            </h5>
+            <a ng-href="#/{{share.referral.targetUrl}}" class="btn btn-primary btn-block">
+                <span class="si-icon-head-idea-lightbulb si-ico-font-size-xs"></span>
+                PROCEED AS GUEST
+            </a>
+        </div>
+    </div>
+    <div class="row cushion-20-top" ng-show="share.hasReferral && !share.referral.guestAllowed">
+        <div class="col-xs-12 text-center">
+            <h3 class="text-warning si-font-theme-light">
+                <span class="si-icon-face-robot si-ico-font-size-sm"></span>
+                Please confirm you are not a <strong>robot</strong>.
+            </h3>
+            <p>
+                Please either sign up below or
+                <a href="#/login" class="btn btn-default btn-xs">
+                    Login &raquo;
+                </a>
+            </p>
+        </div>
+    </div>
+    <div class="row cushion-20-top" ng-show="share.showReferral">
+        <div class="col-xs-12 text-center">
+            <h4 class="text-success">
+                <span class="si-icon-check si-ico-font-size"></span>
+                <strong>Done.</strong>
+            </h4>
+            <h3 class="text-primary">
+                {{share.referral.title}}
+            </h3>
+            <div class="cushion-15-top">
+                <a ng-href="#/{{share.referral.targetUrl}}" class="btn btn-primary btn-block">
+                    <span class="si-icon-head-idea-lightbulb si-ico-font-size-xs"></span>
+                    {{share.referral.buttonTitle}}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row cushion-20-top">
+        <div class="col-md-12">
+            <h2 class="text-center si-font-theme-light">
+                <span class="si-icon-pencil si-ico-font-size"></span>
+                Sign up with...
+            </h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <fieldset>
+                        <legend>
+                            <span class="si-font-theme-light">Social Intuition</span>
+                        </legend>
+                        <signup-social-intuition share="share"></signup-social-intuition>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

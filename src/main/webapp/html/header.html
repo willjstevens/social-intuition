@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle"
+                    ng-init="isCollapsed = true"
+                    ng-click="isCollapsed = !isCollapsed"
+                    aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand social-intuition-text si-font-theme-light" ng-click="isCollapsed = true; path('/')">
+                <span class="si-icon-head-idea-lightbulb si-ico-font-size-xs"></span>
+                Social Intuition
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" uib-collapse="isCollapsed">
+            <form class="navbar-form navbar-right" ng-show="isHomeWelcomePage">
+                <ul class="list-inline text-center">
+                    <li><a ng-click="scrollTo('#howitworks'); isCollapsed = true;" class="btn btn-default header-btn">How It Works</a></li>
+                    <li><a ng-click="scrollTo('#features'); isCollapsed = true;" class="btn btn-default header-btn">Features</a></li>
+                    <li ng-show="!isLoggedIn"><a ng-click="isCollapsed = true; path('signup')" class="btn btn-default header-btn">Sign up</a></li>
+                    <li ng-show="!isLoggedIn"><a ng-click="isCollapsed = true; path('login')" class="btn btn-default header-btn">Login</a></li>
+                </ul>
+            </form>
+            <form class="navbar-form navbar-right session-bar" ng-show="!isHomeWelcomePage">
+                <div class="form-group has-feedback push-down-5">
+                    <cohort-search collapsed="isCollapsed"></cohort-search>
+                    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <ul class="list-inline display-inline" ng-show="isLoggedIn && !isGuest">
+                    <li><notification-popover></notification-popover></li>
+                    <li><a ng-click="isCollapsed = true; path('/profile/'+username)" class="btn btn-default header-btn">Profile</a></li>
+                    <li><a ng-click="logout()" class="btn btn-default header-btn">Logout</a></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</nav>

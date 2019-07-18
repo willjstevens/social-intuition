@@ -1,0 +1,186 @@
+<div class="row" ng-show="socialMediaShowChoices">
+    <div class="col-xs-12 col-sm-6 cushion-5-top">
+        <a class="btn btn-info btn-block si-font-theme-light"
+           ng-click="registerWithFacebook()">
+            <span class="si-icon-social-facebook si-ico-font-size-sm"></span>
+            <span class="pull-up-3">Facebook</span>
+        </a>
+    </div>
+    <div class="col-xs-12 col-sm-6 cushion-5-top">
+        <a class="btn btn-danger btn-block si-font-theme-light"
+           ng-click="registerWithGoogle()">
+            <span class="si-icon-social-google-gplus si-ico-font-size-sm"></span>
+            <span class="pull-up-3">Google</span>
+        </a>
+    </div>
+</div>
+<div class="row" ng-show="progressing">
+    <div class="col-xs-12 text-center">
+        <h4 class="text-warning">
+            <span class="si-icon-cw-clockwise si-ico-font-size-xs fa-spin push-down-4"></span>
+            {{progressMessage}}
+        </h4>
+    </div>
+</div>
+<div class="row" ng-show="message">
+    <div class="col-xs-12 text-center">
+        <h4 class="text-warning">
+            <span class="si-icon-information-info-i si-ico-font-size-xs"></span>
+            {{message}}
+        </h4>
+    </div>
+</div>
+<div class="row" ng-show="authorizationDenied">
+    <div class="col-xs-12 text-center text-danger">
+        <h3>
+            <span class="si-icon-button-circle-cross si-ico-font-size-xs"></span>
+            Unfortunately we cannot continue.
+        </h3>
+        <p>Looks like you did not grant authorization to Social Intuition to import basic information such as email, first and last name.</p>
+        <a ng-click="reloadSignup()" class="btn btn-info btn-sm">
+            Try Again &raquo;
+        </a>
+    </div>
+</div>
+<div class="row" ng-show="errorDuringRegistration">
+    <div class="col-xs-12 text-center text-danger">
+        <h3>
+            <span class="si-icon-button-circle-cross si-ico-font-size-xs"></span>
+            Error occurred during registration.
+        </h3>
+        <p>Please try again later.</p>
+    </div>
+</div>
+<div class="row" ng-show="emailNotAvailable">
+    <div class="col-xs-12 text-center text-danger">
+        <h4>
+            <span class="si-icon-button-circle-cross si-ico-font-size-xs"></span>
+            Looks like <strong>{{email}}</strong> is already registered.
+        </h4>
+        <h5>Did you sign up already?</h5>
+        <div>
+            <a href="#/login" class="btn btn-info btn-sm">
+                Login &raquo;
+            </a>
+        </div>
+    </div>
+</div>
+
+<form name="inputForm"
+      ng-submit="submitRegistrationWithSocialPlatform()"
+      novalidate
+      autocomplete="off">
+
+    <div class="row" ng-show="usernameInput">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="username">
+                    <span class="text-warning">
+                        <span class="si-icon-questions-answers"></span>
+                        Username
+                    </span>
+                    <a uib-tooltip="For your profile page. It needs to be unique to identify you."
+                       tooltip-placement="right"
+                       class="si-font-size-75">
+                        Why do I need a username?
+                    </a>
+                </label>
+                <input id="username"
+                       name="username"
+                       type="text"
+                       class="form-control input-lg"
+                       maxlength="26"
+                       required
+                       si-check-username-availability
+                       ng-pattern=/^[a-zA-Z0-9]+$/
+                       ng-model="username"
+                       ng-minlength="2"
+                       ng-maxlength="25"
+                />
+                <div ng-messages="inputForm.username.$error"
+                     ng-if="inputForm.username.$invalid && inputForm.username.$dirty"
+                     class="error error-animate">
+                    <div ng-message="required">Username is required.</div>
+                    <div ng-message="minlength">Username must be at least 2 characters.</div>
+                    <div ng-message="maxlength">Username cannot exceed 25 characters.</div>
+                    <div ng-message="pattern">Username may only contain characters and digits.</div>
+                    <div ng-message="notAvailable">Username not available.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="emailInput">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="email">
+                    <span class="text-warning">
+                        <span class="si-icon-questions-answers"></span>
+                        Email
+                    </span>
+                    <a uib-tooltip="For us to communicate in case of a forgotten password, legal updates or occasional reminders."
+                       tooltip-placement="right"
+                       class="si-font-size-75">
+                        Why do I need to enter my email?
+                    </a>
+                </label>
+                <input id="email"
+                       name="email"
+                       type="email"
+                       class="form-control input-lg"
+                       maxlength="51"
+                       required
+                       si-check-email-availability
+                       ng-model="email"
+                       ng-minlength="5"
+                       ng-maxlength="50"
+                />
+                <div ng-messages="inputForm.email.$error" ng-if="inputForm.email.$invalid && inputForm.email.$dirty" class="error error-animate">
+                    <div ng-message="required">Email is required.</div>
+                    <div ng-message="minlength">Email must be at least 5 characters.</div>
+                    <div ng-message="maxlength">Email cannot exceed 50 characters.</div>
+                    <div ng-message="email">Email is not a valid format.</div>
+                    <div ng-message="notAvailable">Email not available.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="usernameInput || emailInput">
+        <div class="col-xs-12">
+            <div class="text-center">
+                By submitting this form you agree to the
+                <a href='javascript: void(0)' onclick="window.open('#/terms-of-service')">Terms of Service</a>
+                and
+                <a href='javascript: void(0)' onclick="window.open('#/privacy-policy')">Privacy Policy</a>.
+            </div>
+            <div class="cushion-10-top">
+                <button type="submit"
+                        class="btn btn-primary btn-lg btn-block"
+                        ng-disabled="inputForm.$invalid">
+                    <span class="si-icon-open-sign si-ico-font-size-xs"></span>
+                    Complete Registration
+                </button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="row" ng-show="doneWithSignup">
+    <div class="col-xs-12 text-center">
+        <h2 class="text-success">
+            <span class="si-icon-check si-ico-font-size"></span>
+            <strong>Done.</strong>
+        </h2>
+        <h3 class="text-primary">
+            Welcome to Social Intuition!
+        </h3>
+        <div class="cushion-15-top">
+            <a ng-href="#/profile/{{user.username}}" class="btn btn-primary">
+                <span class="si-icon-head-idea-lightbulb si-ico-font-size-xs"></span>
+                GET STARTED
+            </a>
+        </div>
+    </div>
+</div>

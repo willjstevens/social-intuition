@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row cushion-20-top">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <h2>Your Score History</h2>
+        </div>
+    </div>
+    <div class="row cushion-20-top">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <div class="h4">
+                <span>Your Intuitions</span>
+                <span class="text-muted pull-right">{{scoreDto.score.ownedCorrect.length}} of {{scoreDto.ownedTotal}} correct</span>
+            </div>
+            <table class="table table-striped">
+                <th>Intuition</th>
+                <th>Outcome</th>
+                <th>Prediction</th>
+                <th>Outcome time</th>
+                <tr ng-repeat="intuition in scoreDto.allOwned">
+                    <td class="col-sm-4">
+                        <a ng-href="#/intuition/{{intuition.id}}">
+                            {{intuition.intuitionText}}
+                        </a>
+                    </td>
+                    <td class="col-sm-3">{{intuition.outcome.predictionText}}</td>
+                    <td class="col-sm-2">
+                        <div ng-switch="intuition.outcome.correct">
+                            <div ng-switch-when="true" class="text-success strong">
+                                <span class="si-icon-check si-ico-font-size-xs"></span>
+                                CORRECT
+                            </div>
+                            <div ng-switch-when="false" class="text-danger strong">
+                                <span class="si-icon-cross si-ico-font-size-xs"></span>
+                                WRONG
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-sm-3">{{intuition.outcome.displayTimestamp}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row cushion-10-top">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <div class="h4">
+                <span>Cohort Intuitions</span>
+                <span class="text-muted pull-right">{{scoreDto.score.cohortCorrect.length}} of {{scoreDto.cohortTotal}} correct</span>
+            </div>
+            <table class="table table-striped">
+                <th>Intuition</th>
+                <th>Outcome</th>
+                <th>Prediction</th>
+                <th>Outcome time</th>
+                <tr ng-repeat="intuition in scoreDto.allCohort">
+                    <td class="col-sm-4">
+                        <a ng-href="#/intuition/{{intuition.id}}">
+                            {{intuition.intuitionText}}
+                        </a>
+                    </td>
+                    <td class="col-sm-3">{{intuition.outcome.predictionText}}</td>
+                    <td class="col-sm-2">
+                        <div ng-switch="intuition.outcome.correct">
+                            <div ng-switch-when="true" class="text-success strong">
+                                <span class="si-icon-check si-ico-font-size-xs"></span>
+                                CORRECT
+                            </div>
+                            <div ng-switch-when="false" class="text-danger strong">
+                                <span class="si-icon-cross si-ico-font-size-xs"></span>
+                                WRONG
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-sm-3">{{intuition.outcome.displayTimestamp}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

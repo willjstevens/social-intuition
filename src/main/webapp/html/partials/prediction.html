@@ -1,0 +1,80 @@
+<div class="panel panel-default prediction">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+        <span ng-if="intuition.displayPrediction">Predicted Outcome</span>
+        <span ng-if="!intuition.displayPrediction">Predicted Outcome Type</span>
+    </div>
+    <div class="panel-body">
+        <div ng-if="intuition.displayPrediction">
+            <div class="text-center">
+                <span ng-bind="choiceLetter"
+                      ng-if="intuition.predictionType == 'multiple-choice'"
+                      class="si-font-decorated-medium cushion-5-right"></span>
+                <span class="si-font-decorated-medium">{{intuition.predictedOutcome.predictionText}}</span>
+            </div>
+        </div>
+        <div ng-if="!intuition.displayPrediction" class="text-center">
+            <span ng-switch="intuition.predictionType" class="si-font-decorated-medium">
+                <span ng-switch-when="true-false">True / False</span>
+                <span ng-switch-when="yes-no">Yes / No</span>
+                <span ng-switch-when="multiple-choice">Multiple Choice</span>
+            </span>
+        </div>
+    </div>
+    <ol class="list-group" type="A">
+        <li ng-repeat="potentialOutcomeDto in intuitionDto.potentialOutcomeDtos"
+            ng-init="predicted = potentialOutcomeDto.outcome.id == intuition.predictedOutcome.id;
+                setChoiceLetter($index, predicted)
+            "
+            class="list-group-item">
+
+            <span class="si-font-decorated"
+                  ng-class="{'si-font-decorated-medium': predicted && intuition.displayPrediction}"
+                    >
+                {{potentialOutcomeDto.outcome.predictionText}}
+            </span>
+            <small class="text-muted" ng-show="predicted && intuition.displayPrediction">
+                (predicted)
+            </small>
+
+            <span class="pull-right">
+                <span ng-if="intuitionDto.cohortVotedOutcomeDto && intuitionDto.cohortVotedOutcomeDto.outcome.id == potentialOutcomeDto.outcome.id">
+                    <span class="si-icon-filled-star text-primary"></span>
+                    Voted by You
+                    <small>&middot;</small>
+                </span>
+                <span ng-if="potentialOutcomeDto.outcome.outcomeVoters.length >= 1">
+                    <span class="si-icon-label-tag"></span>
+                    Votes
+                    <cohort-list-popover parent="potentialOutcomeDto"
+                                            level="'outcomeVotes'"
+                                            type="'outcomeVotes'"
+                                            placement="'left'">
+                        <span class="badge">{{potentialOutcomeDto.outcome.outcomeVoters.length}}</span>
+                    </cohort-list-popover>
+                </span>
+                <a ng-click="voteForOutcome(potentialOutcomeDto.outcome)"
+                   class="btn btn-primary btn-xs"
+                   ng-show="intuitionDto.canVote && intuitionDto.canMakeSocialContributions && !voteLoading">
+                    <span class="si-icon-label-tag"></span>
+                    Vote
+                </a>
+                <span ng-show="voteLoading">
+                    <span class="si-icon-cw-clockwise fa-spin"></span>
+                </span>
+            </span>
+        </li>
+    </ol>
+</div>
+                           {{intutionDto.canContributeOutcome}}
+<div ng-show="intuitionDto.canContributeOutcome" class="cushion-10-bottom">
+    <textarea
+        rows="1"
+        class="form-control"
+        placeholder="Add an outcome"
+        ui-keypress="{13:'addOutcome($event)'}"
+        ng-model="contributedOutcomeText"></textarea>
+</div>
+
+
+

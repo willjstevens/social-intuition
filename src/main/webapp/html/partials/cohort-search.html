@@ -1,0 +1,21 @@
+<script type="text/ng-template" id="cohortListing.html">
+    <a ng-href="#/profile/{{match.model.user.username}}">
+        <span class="si-icon-user-userpic-avatar-portrait si-ico-font-size-sm"
+              ng-if="!match.model.user.imageInfo"></span>
+        <img ng-src="{{match.model.user.imageInfo.secureUrl}}"
+             ng-if="match.model.user.imageInfo"
+             name="{{match.model.user.fullName}}"
+             class="media-object media-object-xs img-rounded">
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script>
+
+<input type="search"
+        class="form-control"
+        placeholder="Cohorts"
+        ng-model="selectedUser"
+        uib-typeahead="userDto as userDto.user.fullName for userDto in getUserResults($viewValue)"
+        typeahead-min-length="2"
+        typeahead-template-url="cohortListing.html"
+        typeahead-on-select="userSelected($item, $model, $label)"
+        >

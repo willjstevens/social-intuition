@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="row cushion-20-top profile">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-3">
+            <div class="row">
+                <div class="col-xs-12 text-center cushion-15-top">
+                    <div class="si-icon-user-userpic-avatar-portrait si-ico-font-size-1200"
+                         ng-show="!profilePhotoUrl"></div>
+                    <span ngf-src="profilePhoto[0]"></span>
+                    <img ng-src="{{profilePhotoUrl}}"
+                         class="profile-photo"
+                         ng-show="profilePhotoUrl"
+                         imageonload>
+                    <button
+                        ngf-select=""
+                        ng-model="profilePhoto"
+                        class="btn btn-default btn-sm hidden-xs cushion-10-top"
+                        ngf-multiple="false"
+                        ngf-accept="'*.pdf,*.jpg,*.png'"
+                        ng-show="profileDto.owner && !uploadingProfilePhoto">
+                        <span class="si-icon-user-userpic-avatar-portrait"></span>
+                        Upload profile picture
+                    </button>
+                    <div class="text-center cushion-10-top" ng-show="uploadingProfilePhoto">
+                        <span class="si-icon-cw-clockwise fa-spin"></span>
+                        Uploading...
+                    </div>
+                    <div class="header-name si-font-theme-light h2">{{user.fullName}}</div>
+                </div>
+            </div>
+            <div class="row" ng-if="profileDto.showCohortButtonSection">
+                <div class="col-xs-12 text-center" ng-show="showAddCohort">
+                    <a href=""
+                       class="btn btn-primary"
+                       ng-show="!isAddingCohort && !profileDto.cohortRequestSent"
+                       ng-click="addCohort()">
+                        <span class="si-icon-users si-ico-font-size-xs"></span>
+                        Add Cohort
+                    </a>
+                    <span ng-show="isAddingCohort && !profileDto.cohortRequestSent">
+                        <span class="si-icon-cw-clockwise fa-spin"></span> Sending request.
+                    </span>
+                    <span class="text-success" ng-show="profileDto.cohortRequestSent">
+                        <span class="si-icon-check si-ico-font-size-xs"></span>
+                        Request sent.
+                    </span>
+                </div>
+                <div class="col-xs-12 text-success text-center cushion-15-top" ng-show="profileDto.cohort">
+                    <span class="si-icon-star-user si-ico-font-size-xs"></span>
+                    You are cohorts.
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-5">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <a href="#/score-history" ng-if="profileDto.owner">
+                        <div easypiechart options="pieChartTotalOptions" percent="totalPercent" class="chart">
+                            <span class="percent si-font-decorated-medium">{{totalPercent}}</span>
+                        </div>
+                    </a>
+                    <span ng-show="!profileDto.owner">
+                        <div easypiechart options="pieChartTotalOptions" percent="totalPercent" class="chart">
+                            <span class="percent si-font-decorated-medium">{{totalPercent}}</span>
+                        </div>
+                    </span>
+                    <div class="si-font-decorated h4">
+                        Total Average
+                        <p class="cushion-5-top h6 text-muted">{{scoreDto.totalCorrect}} of {{scoreDto.total}} correct</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 text-center small-pie-chart owned-pie-chart">
+                            <div easypiechart options="pieChartOwnedOptions" percent="ownedPercent" class="chart">
+                                <span class="percent si-font-decorated-medium">{{ownedPercent}}</span>
+                            </div>
+                            <div class="si-font-decorated h4">
+                                <span ng-if="profileDto.owner">Your Average</span>
+                                <span ng-if="!profileDto.owner">{{user.firstName}}'s Average</span>
+                                <p class="cushion-5-top h6 text-muted">{{scoreDto.score.ownedCorrect.length}} of {{scoreDto.ownedTotal}} correct</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 text-center small-pie-chart cohort-pie-chart">
+                            <div easypiechart options="pieChartCohortOptions" percent="cohortPercent" class="chart">
+                                <span class="percent si-font-decorated-medium">{{cohortPercent}}</span>
+                            </div>
+                            <div class="si-font-decorated h4">
+                                Cohort Average
+                                <p class="cushion-5-top h6 text-muted">{{scoreDto.score.cohortCorrect.length}} of {{scoreDto.cohortTotal}} correct</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-if="profileDto.owner">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <si-add-intuition share="share"></si-add-intuition>
+        </div>
+    </div>
+
+    <feed type="'profile'" share="share"></feed>
+
+</div>

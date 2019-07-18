@@ -1,0 +1,35 @@
+<div class="row feed" ng-show="hasIntuitions">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+        <ul class="list-unstyled">
+            <div infinite-scroll="loadIntuitions()"
+                 infinite-scroll-distance="1"
+                 infinite-scroll-disabled="loadingFeed">
+                <li class="well feed-item cushion-15-bottom"
+                    ng-repeat="intuitionDto in intuitionDtos"
+                    ng-init="intuition = intuitionDto.intuition"
+                    ng-class="{addIntuitionLoading: addIntuitionLoading, addIntuitionLoaded: addIntuitionLoaded}">
+                    <!-- THE INTUITION -->
+                    <intuition intuition-dto="intuitionDto"
+                               reset-intuition-dto="resetIntuitionDto"
+                               remove-intuition-dto="removeIntuitionDto"
+                               share="share"></intuition>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+<div class="row" ng-show="!hasIntuitions && !loadingFeed && !initialLoad">
+    <div class="col-xs-12 text-center">
+        <h2>
+            <i class="fa fa-ban"></i>
+            You have no intuitions.
+        </h2>
+        <h4>Add some intuitions!</h4>
+    </div>
+</div>
+<div class="row" ng-show="loadingFeed">
+    <div class="col-xs-12 text-center">
+        <i class="si-icon-cw-clockwise si-ico-font-size-md fa-spin"></i>
+        <h4>Loading...</h4>
+    </div>
+</div>

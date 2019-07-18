@@ -1,0 +1,343 @@
+<div class="row">
+    <div class="col-xs-12">
+        <span ng-show="!likeLoading && parent.canMakeSocialContributions">
+            <span ng-show="!parent.selfLikeDto">
+                <a href="" ng-click="addLike()">
+                    Like
+                </a>
+            </span>
+            <span ng-show="parent.selfLikeDto">
+                <a href="" ng-click="removeLike()">Unlike</a>
+            </span>
+            <span class="small">&middot;</span>
+        </span>
+        <span ng-show="likeLoading">
+            <span class="si-icon-cw-clockwise fa-spin"></span>
+        </span>
+        <span ng-if="parent.canMakeSocialContributions">
+                <a href="" ng-click="setFocus('comment_' + (level === 'intuition' ? intuition.id : intuition.outcome.id))">
+                Comment
+            </a>
+        </span>
+        <span ng-if="hasLikes" class="cushion-5-left">
+            <cohort-list-popover
+                    parent="parent"
+                    level="level"
+                    type="'likes'"
+                    placement="'right'">
+                <span class="si-icon-like-thumbs-up"></span>
+                {{parent.likeDtos.length + (parent.selfLikeDto != undefined) + parent.guestLikeDtos.length}}
+            </cohort-list-popover>
+        </span>
+        <span ng-if="parent.commentDtos.length >= 1" class="cushion-5-left">
+            <span class="si-icon-speech-bubble"></span>
+            {{parent.commentDtos.length}}
+        </span>
+    </div>
+</div>
+<div class="row" ng-if="hasLikes">
+    <div class="col-xs-12">
+        <hr />
+        <span class="si-icon-like-thumbs-up"></span>
+        <span ng-if="parent.selfLikeDto">
+            <span ng-if="parent.likeDtos.length == 0 && parent.guestLikeDtos.length == 0">
+                You like this.
+            </span>
+            <span ng-if="parent.likeDtos.length == 1 && parent.guestLikeDtos.length == 0">
+                You and
+                <a ng-href="#/profile/{{parent.likeDtos[0].like.user.username}}">
+                    {{parent.likeDtos[0].like.user.fullName}}
+                </a>
+                like this.
+            </span>
+            <span ng-if="parent.likeDtos.length == 0 && parent.guestLikeDtos.length == 1">
+                You and a guest like this.
+            </span>
+            <span ng-if="parent.likeDtos.length == 0 && parent.guestLikeDtos.length >= 2">
+                You and {{parent.guestLikeDtos.length}} guests like this.
+            </span>
+            <span ng-if="!hasGuests && parent.likeDtos.length >= 2 && parent.likeDtos.length <= likeNameListingLimit">
+                You
+                <span trim-commas>
+                    <span ng-repeat="likeDto in parent.likeDtos" trim-commas>
+                        <span ng-switch="($index + 1) == parent.likeDtos.length">
+                            <span ng-switch-when="true"> and </span>
+                            <span ng-switch-default>,</span>
+                        </span>
+                        <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                    </span>
+                </span>
+                like this.
+            </span>
+            <span ng-if="!hasGuests && parent.likeDtos.length > likeNameListingLimit">
+                You,
+                <span ng-repeat="likeDto in parent.likeDtos | limitTo: likeNameListingLimit" trim-commas>
+                    <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                    <span ng-if="($index) < likeNameListingLimit-1">,</span>
+                </span>
+                and
+                <cohort-list-popover parent="parent" level="level" type="'likes'" placement="'left'">
+                    <span ng-switch="parent.likeDtos.length - likeNameListingLimit">
+                        <span ng-switch-when="1">one other</span>
+                        <span ng-switch-default>{{parent.likeDtos.length - likeNameListingLimit}} others</span>
+                    </span>
+                </cohort-list-popover>
+                like this.
+            </span>
+            <span ng-if="hasGuests && parent.likeDtos.length >= 1 && parent.likeDtos.length <= likeNameListingLimit" trim-commas>
+                You
+                <span ng-switch="parent.guestLikeDtos.length == 1">
+                    <span ng-switch-when="true">
+                        , one guest
+                    </span>
+                    <span ng-switch-default>
+                        , {{parent.guestLikeDtos.length}} guests
+                    </span>
+                </span>
+                <span ng-repeat="likeDto in parent.likeDtos">
+                    <span ng-switch="($index + 1) == parent.likeDtos.length">
+                        <span ng-switch-when="true"> and </span>
+                        <span ng-switch-default>,</span>
+                    </span>
+                    <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                </span>
+                like this.
+            </span>
+            <span ng-if="hasGuests && parent.likeDtos.length > likeNameListingLimit">
+                <span trim-commas>
+                    You
+                    <span ng-repeat="likeDto in parent.likeDtos | limitTo: likeNameListingLimit">
+                        <span ng-if="($index) < likeNameListingLimit-1 || parent.guestLikeDtos.length >= 1">,</span>
+                        <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                    </span>
+                    <span ng-switch="parent.guestLikeDtos.length == 1">
+                        <span ng-switch-when="true">
+                            , one guest
+                        </span>
+                        <span ng-switch-default>
+                            , {{parent.guestLikeDtos.length}} guests
+                        </span>
+                    </span>
+                    and
+                </span>
+                <cohort-list-popover parent="parent" level="level" type="'likes'" placement="'left'">
+                    <span ng-switch="parent.likeDtos.length - likeNameListingLimit">
+                        <span ng-switch-when="1">one other</span>
+                        <span ng-switch-default>{{parent.likeDtos.length - likeNameListingLimit}} others</span>
+                    </span>
+                </cohort-list-popover>
+                like this.
+            </span>
+        </span>
+        <span ng-if="!parent.selfLikeDto">
+            <span ng-if="parent.likeDtos.length == 1 && parent.guestLikeDtos.length == 0">
+                <a ng-href="#/profile/{{parent.likeDtos[0].like.user.username}}">
+                    {{parent.likeDtos[0].like.user.fullName}}
+                </a>
+                likes this.
+            </span>
+            <span ng-if="parent.likeDtos.length == 0 && parent.guestLikeDtos.length == 1">
+                A guest likes this.
+            </span>
+            <span ng-if="parent.likeDtos.length == 0 && parent.guestLikeDtos.length >= 2">
+                {{parent.guestLikeDtos.length}} guests like this.
+            </span>
+            <span ng-if="!hasGuests && parent.likeDtos.length >= 2 && parent.likeDtos.length <= likeNameListingLimit" trim-commas>
+                <span ng-repeat="likeDto in parent.likeDtos">
+                    <span ng-switch="($index + 1) == parent.likeDtos.length" ng-if="!$first">
+                        <span ng-switch-when="true"> and </span>
+                        <span ng-switch-default>,</span>
+                    </span>
+                    <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                </span>
+                like this.
+            </span>
+            <span ng-if="!hasGuests && parent.likeDtos.length > likeNameListingLimit" trim-commas>
+                <span ng-repeat="likeDto in parent.likeDtos | limitTo: likeNameListingLimit">
+                    <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                    <span ng-if="($index) < likeNameListingLimit-1">,</span>
+                </span>
+                and
+                <cohort-list-popover parent="parent" level="level" type="'likes'" placement="'left'">
+                    <span ng-switch="parent.likeDtos.length - likeNameListingLimit">
+                        <span ng-switch-when="1">one other</span>
+                        <span ng-switch-default>{{parent.likeDtos.length - likeNameListingLimit}} others</span>
+                    </span>
+                </cohort-list-popover>
+                like this.
+            </span>
+            <span ng-if="hasGuests && parent.likeDtos.length >= 1 && parent.likeDtos.length <= likeNameListingLimit" trim-commas>
+                <span ng-repeat="likeDto in parent.likeDtos">
+                    <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                    <span ng-switch="($index + 1) == parent.likeDtos.length">
+                        <span ng-switch-when="true"> and </span>
+                        <span ng-switch-default>,</span>
+                    </span>
+                </span>
+                <span ng-switch="parent.guestLikeDtos.length == 1">
+                    <span ng-switch-when="true">
+                        one guest
+                    </span>
+                    <span ng-switch-default>
+                        {{parent.guestLikeDtos.length}} guests
+                    </span>
+                </span>
+                like this.
+            </span>
+            <span ng-if="hasGuests && parent.likeDtos.length > likeNameListingLimit">
+                <span trim-commas>
+                    <span ng-repeat="likeDto in parent.likeDtos | limitTo: likeNameListingLimit">
+                        <a ng-href="#/profile/{{likeDto.like.user.username}}">{{likeDto.like.user.fullName}}</a>
+                        <span ng-if="($index) < likeNameListingLimit-1 || parent.guestLikeDtos.length >= 1">,</span>
+                    </span>
+                    <span ng-switch="parent.guestLikeDtos.length == 1">
+                        <span ng-switch-when="true">
+                            one guest
+                        </span>
+                        <span ng-switch-default>
+                            {{parent.guestLikeDtos.length}} guests
+                        </span>
+                    </span>
+                    and
+                </span>
+                <cohort-list-popover parent="parent" level="level" type="'likes'" placement="'left'">
+                    <span ng-switch="parent.likeDtos.length - likeNameListingLimit">
+                        <span ng-switch-when="1">one other</span>
+                        <span ng-switch-default>{{parent.likeDtos.length - likeNameListingLimit}} others</span>
+                    </span>
+                </cohort-list-popover>
+                like this.
+            </span>
+        </span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <hr ng-if="parent.commentDtos.length >= 1" />
+        <div ng-if="parent.commentDtos.length > commentListingLimit">
+            <a href="" ng-click="setCommentLimit()">
+                <span class="si-icon-speech-bubble"></span>
+                View all {{parent.commentDtos.length}} comments.
+            </a>
+        </div>
+        <div class="media" ng-repeat="commentDto in parent.commentDtos | limitTo: commentListingLimit">
+            <div class="media-left">
+                <span ng-switch="commentDto.comment.user.guest">
+                    <span ng-switch-when="true">
+                        <img ng-src="{{userGuestImageUrl}}"
+                             name="Guest"
+                             class="media-object media-object-xs profile-photo-small">
+                    </span>
+                    <span ng-switch-default>
+                        <a ng-href="#/profile/{{commentDto.comment.user.username}}">
+                            <img ng-src="{{commentDto.comment.user.imageInfo.secureUrl}}"
+                                 name="{{commentDto.comment.user.fullName}}"
+                                 class="media-object media-object-xs profile-photo-small">
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="media-body full-width">
+                <h6 class="media-heading">
+                    <span ng-switch="commentDto.comment.user.guest">
+                        <span ng-switch-when="true">
+                            Guest
+                        </span>
+                        <span ng-switch-default>
+                            <a ng-href="#/profile/{{commentDto.comment.user.username}}">
+                                {{commentDto.comment.user.fullName}}
+                            </a>
+                        </span>
+                    </span>
+                </h6>
+                {{commentDto.comment.commentText}}
+                <div>
+                    <span class="text-muted">
+                        <a uib-tooltip="{{commentDto.displayTimestamp}}" tooltip-placement="bottom">
+                            <small>{{commentDto.postPrettyTimestamp}}</small>
+                        </a>
+                    </span>
+                    <span ng-if="parent.canMakeSocialContributions">
+                        <small>&middot;</small>
+                        <span ng-if="!commentDto.selfLikeDto">
+                            <a href="" ng-click="addCommentLike(commentDto.comment)">
+                                Like
+                                <span ng-if="commentDto.likeDtos.length >= 1">
+                                     ({{commentDto.likeDtos.length}})
+                                </span>
+                            </a>
+                        </span>
+                        <span ng-if="commentDto.selfLikeDto">
+                            <a href="" ng-click="removeCommentLike(commentDto.comment, commentDto.selfLikeDto.like)">
+                                Unlike
+                            </a>
+                        </span>
+                    </span>
+                    <span ng-if="commentDto.likeDtos.length >= 1 || commentDto.selfLikeDto != undefined" class="cushion-5-left">
+                        <small>&middot;</small>
+                        <cohort-list-popover parent="parent" level="level" type="'commentLikes'" comment-dto="commentDto" placement="'right'">
+                            <span class="si-icon-like-thumbs-up"></span>
+                            {{commentDto.likeDtos.length + (commentDto.selfLikeDto != undefined) + commentDto.guestLikeDtos.length}}
+                        </cohort-list-popover>
+                    </span>
+                    <span ng-if="commentDto.owner">
+                        <small>&middot;</small>
+                        <a href="" ng-click="removeComment(commentDto.comment)">
+                            <span class="si-icon-trash-delete-remove"></span>
+                            Delete
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row cushion-10-top" ng-show="parent.canMakeSocialContributions">
+    <div class="col-xs-12">
+        <div class="media">
+            <div class="media-left">
+                <span ng-switch="isGuest">
+                    <span ng-switch-when="true">
+                        <img ng-src="{{userGuestImageUrl}}"
+                             name="Guest"
+                             class="media-object media-object-xs profile-photo-small">
+                    </span>
+                    <span ng-switch-default>
+                        <a ng-href="#/profile/{{user.username}}">
+                            <img ng-src="{{user.imageInfo.secureUrl}}"
+                                 name="{{user.fullName}}"
+                                 class="media-object media-object-xs profile-photo-small">
+                        </a>
+                    </span>
+                </span>
+            </div>
+            <div class="media-body full-width">
+                <h6 class="media-heading">
+                    <span ng-switch="isGuest">
+                        <span ng-switch-when="true">
+                            Guest
+                        </span>
+                        <span ng-switch-default>
+                            <a ng-href="#/profile/{{user.username}}">
+                                {{user.fullName}}
+                            </a>
+                        </span>
+                    </span>
+                </h6>
+                <form name="form"
+                      novalidate
+                      autocomplete="off"
+                      ui-keypress="{13:'addComment($event)'}">
+                    <textarea
+                            ng-attr-id="{{'comment_' + (level === 'intuition' ? intuition.id : intuition.outcome.id)}}"
+                            rows="1"
+                            class="form-control"
+                            placeholder="Care to comment?"
+                            ng-model="comment.commentText"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

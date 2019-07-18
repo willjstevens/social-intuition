@@ -1,0 +1,128 @@
+<div class="container">
+    <div class="row cushion-30-top">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+            <div ng-show="!progressing && !authorizationDenied">
+                <form name="form"
+                      ng-submit="loginWithSocialIntuition()"
+                      novalidate
+                      autocomplete="off">
+                    <fieldset>
+                        <legend>
+                            <span class="si-font-theme-light">Login</span>
+                        </legend>
+                        <div class="form-group">
+                            <label for="username">Username <small>or</small> Email</label>
+                            <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user fa-fw"></i>
+                            </span>
+                            <input
+                                id="username"
+                                name="username"
+                                type="text"
+                                class="form-control input-lg"
+                                placeholder="Username or email"
+                                maxlength="26"
+                                required
+                                ng-model="user.username"
+                                ng-minlength="2"
+                                ng-maxlength="25">
+                            </div>
+                            <div ng-messages="form.username.$error" ng-if="form.username.$invalid && form.username.$dirty" class="error error-animate">
+                                <div ng-message="required">Username is required.</div>
+                                <div ng-message="minlength">Username must be at least 2 characters.</div>
+                                <div ng-message="maxlength">Username cannot exceed 25 characters.</div>
+                                <div ng-message="pattern">Username may only contain characters and digits.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key fa-fw"></i>
+                            </span>
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control input-lg"
+                                placeholder="Password"
+                                maxlength="26"
+                                required
+                                ng-model="user.password"
+                                ng-pattern=/^[a-zA-Z0-9\$\*\!\@\#]+$/
+                                ng-minlength="2"
+                                ng-maxlength="25">
+                            </div>
+                            <div ng-messages="form.password.$error" ng-if="form.password.$invalid && form.password.$dirty" class="error error-animate">
+                                <div ng-message="required">Password is required.</div>
+                                <div ng-message="minlength">Password must be at least 2 characters.</div>
+                                <div ng-message="maxlength">Password cannot exceed 25 characters.</div>
+                                <div ng-message="pattern">Password may only contain characters, numbers and special characters: $ * ! @ #</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div ng-if="serverMessage" class="error error-animate">
+                                {{serverMessage}}
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="btn btn-primary btn-lg btn-block cushion-20-top"
+                                ng-disabled="form.$invalid">
+                            <span class="si-icon-login-signin si-ico-font-size"></span>
+                            Submit
+                        </button>
+                    </fieldset>
+                </form>
+                <div class="row cushion-10-top">
+                    <div class="col-xs-12">
+                        <div class="strike">
+                            <span><i>or...</i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 cushion-10-top">
+                        <a class="btn btn-info btn-block si-font-theme-light"
+                           ng-click="loginWithFacebook()">
+                            <span class="si-icon-social-facebook si-ico-font-size-sm"></span>
+                            <span class="pull-up-3">Facebook</span>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 cushion-10-top">
+                        <a class="btn btn-danger btn-block si-font-theme-light"
+                           ng-click="loginWithGoogle()">
+                            <span class="si-icon-social-google-gplus si-ico-font-size-sm"></span>
+                            <span class="pull-up-3">Google</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row cushion-20-top">
+                    <div class="col-xs-12">
+                        <a href="#/signup"
+                           class="btn btn-default btn-lg btn-block">
+                            <span class="si-icon-open-sign si-ico-font-size"></span>
+                            Sign up
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" ng-show="progressing">
+                <h3 class="text-primary">
+                    <span class="si-icon-cw-clockwise si-ico-font-size-xs fa-spin push-down-4"></span>
+                    {{progressMessage}}
+                </h3>
+            </div>
+            <div class="text-center text-danger" ng-show="authorizationDenied">
+                <h3>
+                    <span class="si-icon-button-circle-cross si-ico-font-size-xs"></span>
+                    Unfortunately we cannot log you in.
+                </h3>
+                <p>Did you did not log into the social media platform?</p>
+                <a ng-click="reloadLogin()" class="btn btn-info btn-sm">
+                    Try Again &raquo;
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

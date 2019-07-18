@@ -1,0 +1,68 @@
+<span class="dropdown si-notification-dropdown" uib-dropdown on-toggle="toggled(open)">
+    <a href class="dropdown-toggle" uib-dropdown-toggle>
+        <span class="si-icon-mail si-ico-font-size-sm text-light"></span>
+        <span class="badge notification-badge" ng-show="notificationDtos.length >= 1">
+        {{notificationDtos.length}}
+        </span>
+    </a>
+    <ul class="dropdown-menu cushion-15-top">
+        <li class="media" ng-repeat="notificationDto in notificationDtos">
+            <div ng-if="notificationDto.notification.type == 'add-cohort'">
+                <div class="media-left">
+                    <span class="si-icon-star-user si-ico-font-size-sm"></span>
+                </div>
+                <div class="media-body full-width">
+                    <div class="cushion-10-bottom">
+                        {{notificationDto.notification.message}}
+                    </div>
+                    <a class="btn btn-success btn-sm" ng-click="acceptCohort(notificationDto.notification)">
+                        Accept
+                    </a>
+                    <a class="btn btn-danger btn-sm" ng-click="ignoreCohort(notificationDto.notification)">
+                        Ignore
+                    </a>
+                    <div class="small">{{notificationDto.prettyTimestamp}}</div>
+                </div>
+            </div>
+            <div ng-if="notificationDto.notification.type == 'invite-accepted'">
+                <div class="media-left">
+                    <span class="si-icon-star-user si-ico-font-size-sm"></span>
+                </div>
+                <div class="media-body full-width">
+                    {{notificationDto.notification.message}}
+                    <a class="btn btn-success btn-xs" ng-click="goToProfile(notificationDto.notification)">
+                        Visit Profile
+                    </a>
+                    <div class="small">{{notificationDto.prettyTimestamp}}</div>
+                </div>
+            </div>
+            <div ng-if="notificationDto.notification.type == 'outcome-set'">
+                <div class="media-left">
+                    <span class="si-icon-signal si-ico-font-size-sm"></span>
+                </div>
+                <div class="media-body full-width">
+                    <a class="" ng-click="goToUrl(notificationDto.notification, ('/intuition/' + notificationDto.notification.data.id))">
+                        {{notificationDto.notification.message}}
+                    </a>
+                    <div class="small">{{notificationDto.prettyTimestamp}}</div>
+                </div>
+            </div>
+            <div ng-if="notificationDto.notification.type == 'welcome'">
+                <div class="media-left">
+                    <span class="si-icon-signal si-ico-font-size-sm"></span>
+                </div>
+                <div class="media-body full-width">
+                    <a class="" ng-click="addIntuition(notificationDto.notification)">
+                        {{notificationDto.notification.message}}
+                    </a>
+                    <div class="small">{{notificationDto.prettyTimestamp}}</div>
+                </div>
+            </div>
+        </li>
+        <li ng-if="notificationDtos.length == 0">
+            <span class="si-icon-button-circle-cross si-ico-font-size-sm text-danger"></span>
+            <span class="h5">No notifications as of yet.</span>
+        </li>
+    </ul>
+</span>
+
